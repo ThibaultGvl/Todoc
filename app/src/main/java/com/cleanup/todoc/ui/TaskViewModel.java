@@ -27,12 +27,12 @@ public class TaskViewModel extends ViewModel {
         if (this.currentTask != null) {
             return;
         }
-        currentTask = mTaskDataRepository.getTasks(id);
+        currentTask = mTaskDataRepository.getTasks();
     }
 
     @Nullable
-    public LiveData<List<Task>> getTasks(long id) {
-        return mTaskDataRepository.getTasks(id);
+    public LiveData<List<Task>> getTasks() {
+        return mTaskDataRepository.getTasks();
     }
 
     public void createTask(final Task task) {
@@ -42,7 +42,7 @@ public class TaskViewModel extends ViewModel {
     }
 
     public void deleteTask(Task task) {
-        mExecutor.execute(() ->{
+        mExecutor.execute(() -> {
             mTaskDataRepository.createTask(task);
         });
     }

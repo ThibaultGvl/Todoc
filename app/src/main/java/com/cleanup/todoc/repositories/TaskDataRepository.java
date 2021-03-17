@@ -13,8 +13,8 @@ public class TaskDataRepository {
 
     public TaskDataRepository(TaskDao taskDao) { this.taskDao = taskDao; }
 
-    public LiveData<List<Task>> getTasks(long taskId) {
-        return this.taskDao.getTasks(taskId);
+    public LiveData<List<Task>> getTasks() {
+        return this.taskDao.getTasks();
     }
 
     public void createTask(Task task) {taskDao.insertTask(task);}

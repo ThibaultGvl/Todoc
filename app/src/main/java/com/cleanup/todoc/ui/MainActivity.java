@@ -1,5 +1,6 @@
 package com.cleanup.todoc.ui;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.database.dao.SaveTaskDataBase;
 import com.cleanup.todoc.database.dao.TaskDao;
+import com.cleanup.todoc.injections.Injection;
+import com.cleanup.todoc.injections.ViewModelFactory;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * The adapter which handles the list of tasks
      */
     private final TasksAdapter adapter = new TasksAdapter(tasks, this);
+
+    private TaskViewModel mTaskViewModel;
 
     /**
      * The sort method to be used to display tasks
@@ -139,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     public void onDeleteTask(Task task) {
         tasks.remove(task);
         updateTasks();
+        //mTaskViewModel.deleteTask(task);
     }
 
     /**
@@ -164,8 +170,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             }
             // If both project and name of the task have been set
             else if (taskProject != null) {
-                // TODO: Replace this by id of persisted task
-                long id = (long) (Math.random() * 50000);
+                //TODO: Replace this by id of persisted task
+                long id = getTaskId();
 
 
                 Task task = new Task(
@@ -176,8 +182,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 );
 
                 addTask(task);
-
-                SaveTaskDataBase.getInstance(this).taskDao().insertTask(task);
 
                 dialogInterface.dismiss();
             }
@@ -191,6 +195,18 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             dialogInterface.dismiss();
         }
     }
+
+    private void createViewModel() {
+        ViewModelFactory mViewModelFactory = Injection.provideViewModelFactory(this);
+        this.mTaskViewModel = ViewModelProviders.of(this, mViewModelFactory).get(mTaskViewModel.getClass());
+        this.mTaskViewModel.init(getTaskId());
+    }
+
+    /*private void  getTasks(int id) {
+        this.mTaskViewModel.getTasks(id).observe(this, this::updateTasks);
+    }*/
+
+
 
     /**
      * Shows the Dialog for adding a Task

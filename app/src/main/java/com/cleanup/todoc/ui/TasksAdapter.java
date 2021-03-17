@@ -136,12 +136,10 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
                     final Object tag = view.getTag();
                     if (tag instanceof Task) {
                         TaskViewHolder.this.deleteTaskListener.onDeleteTask((Task) tag);
-                        SaveTaskDataBase.getInstance(view.getContext()).taskDao().deleteTask((Task) tag);
                     }
                 }
             });
         }
-
         /**
          * Binds a task to the item view.
          *

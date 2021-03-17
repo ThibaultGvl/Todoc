@@ -43,7 +43,7 @@ import com.cleanup.todoc.model.Task;
                    contentValues.put("id", 1);
                    contentValues.put("projectId", 1L);
                    contentValues.put("name", "Repassage");
-                   contentValues.put("creationTimestamp", "12");
+                   contentValues.put("creationTimestamp", 1);
 
                    db.insert("Task", OnConflictStrategy.IGNORE, contentValues);
                }

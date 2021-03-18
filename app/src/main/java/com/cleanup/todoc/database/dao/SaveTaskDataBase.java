@@ -8,7 +8,7 @@ import android.content.Context;
 import com.cleanup.todoc.model.Task;
 
 @Database(entities = {Task.class}, version = 1, exportSchema = false)
-    public abstract class SaveTaskDataBase extends RoomDatabase {
+public abstract class SaveTaskDataBase extends RoomDatabase {
 
         private static volatile SaveTaskDataBase INSTANCE;
 

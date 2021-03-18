@@ -20,9 +20,6 @@ public interface TaskDao {
     @Insert
     long insertTask(Task task);
 
-    @Update
-    int updateTask(Task task);
-
     @Delete
     int deleteTask(Task task);
 }

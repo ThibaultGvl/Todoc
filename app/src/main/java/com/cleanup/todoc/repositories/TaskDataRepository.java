@@ -20,6 +20,4 @@ public class TaskDataRepository {
     public void createTask(Task task) {taskDao.insertTask(task);}
 
     public void deleteTask(Task task) {taskDao.deleteTask(task);}
-
-    public void updateTask(Task task) {taskDao.updateTask(task);}
 }

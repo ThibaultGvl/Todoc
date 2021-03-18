@@ -29,6 +29,7 @@ import com.cleanup.todoc.model.Task;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>Home activity of the application which is displayed when the user opens the app.</p>
@@ -106,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         listTasks.setAdapter(adapter);
+        this.configureViewModel();
+        this.getTasks();
 
         findViewById(R.id.fab_add_task).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             sortMethod = SortMethod.RECENT_FIRST;
         }
 
-        updateTasks();
+        updateTasks(tasks);
 
         return super.onOptionsItemSelected(item);
     }
@@ -143,8 +146,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @Override
     public void onDeleteTask(Task task) {
         tasks.remove(task);
-        updateTasks();
-        //mTaskViewModel.deleteTask(task);
+        mTaskViewModel.deleteTask(task);
+        updateTasks(tasks);
     }
 
     /**
@@ -196,15 +199,16 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         }
     }
 
-    private void createViewModel() {
+    private void configureViewModel() {
         ViewModelFactory mViewModelFactory = Injection.provideViewModelFactory(this);
-        this.mTaskViewModel = ViewModelProviders.of(this, mViewModelFactory).get(mTaskViewModel.getClass());
-        this.mTaskViewModel.init(getTaskId());
+        this.mTaskViewModel = ViewModelProviders.of(this, mViewModelFactory).get(TaskViewModel.class);
+        this.mTaskViewModel.init();
     }
 
-    /*private void  getTasks(int id) {
-        this.mTaskViewModel.getTasks(id).observe(this, this::updateTasks);
-    }*/
+    private void getTasks() {
+        assert this.mTaskViewModel.getTasks() != null;
+        this.mTaskViewModel.getTasks().observe(this, this::updateTasks);
+    }
 
 
 
@@ -229,13 +233,14 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private void addTask(@NonNull Task task) {
         tasks.add(task);
-        updateTasks();
+        mTaskViewModel.createTask(task);
+        updateTasks(tasks);
     }
 
     /**
      * Updates the list of tasks in the UI
      */
-    private void updateTasks() {
+    private void updateTasks(List<Task> tasks) {
         if (tasks.size() == 0) {
             lblNoTasks.setVisibility(View.VISIBLE);
             listTasks.setVisibility(View.GONE);
@@ -292,7 +297,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
                 Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 button.setOnClickListener(new View.OnClickListener() {
-
                     @Override
                     public void onClick(View view) {
                         onPositiveButtonClick(dialog);
@@ -300,7 +304,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 });
             }
         });
-
         return dialog;
     }
 

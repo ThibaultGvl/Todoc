@@ -16,23 +16,23 @@ public class TaskViewModel extends ViewModel {
     private final Executor mExecutor;
 
     @Nullable
-    private LiveData<List<Task>> currentTask;
+    private LiveData<List<Task>> Tasks;
 
     public TaskViewModel(TaskDataRepository mTaskDataRepository, Executor mExecutor) {
         this.mTaskDataRepository = mTaskDataRepository;
         this.mExecutor = mExecutor;
     }
 
-    public void init(long id) {
-        if (this.currentTask != null) {
+    public void init() {
+        if (this.Tasks != null) {
             return;
         }
-        currentTask = mTaskDataRepository.getTasks();
+        Tasks = mTaskDataRepository.getTasks();
     }
 
     @Nullable
     public LiveData<List<Task>> getTasks() {
-        return mTaskDataRepository.getTasks();
+        return Tasks;
     }
 
     public void createTask(final Task task) {
@@ -43,13 +43,7 @@ public class TaskViewModel extends ViewModel {
 
     public void deleteTask(Task task) {
         mExecutor.execute(() -> {
-            mTaskDataRepository.createTask(task);
-        });
-    }
-
-    public void updateTask(Task task) {
-        mExecutor.execute(() -> {
-            mTaskDataRepository.updateTask(task);
+            mTaskDataRepository.deleteTask(task);
         });
     }
 }

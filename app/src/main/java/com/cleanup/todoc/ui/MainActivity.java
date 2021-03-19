@@ -206,7 +206,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     }
 
     private void getTasks() {
-        assert this.mTaskViewModel.getTasks() != null;
         this.mTaskViewModel.getTasks().observe(this, this::updateTasks);
     }
 

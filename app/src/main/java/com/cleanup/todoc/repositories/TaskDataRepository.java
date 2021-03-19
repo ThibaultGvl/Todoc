@@ -11,11 +11,9 @@ public class TaskDataRepository {
 
     private final TaskDao taskDao;
 
-    public TaskDataRepository(TaskDao taskDao) { this.taskDao = taskDao; }
+    public TaskDataRepository(TaskDao taskDao) {this.taskDao = taskDao;}
 
-    public LiveData<List<Task>> getTasks() {
-        return this.taskDao.getTasks();
-    }
+    public LiveData<List<Task>> getTasks() {return this.taskDao.getTasks();}
 
     public void createTask(Task task) {taskDao.insertTask(task);}
 

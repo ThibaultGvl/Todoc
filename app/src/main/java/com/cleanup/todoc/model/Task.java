@@ -15,7 +15,7 @@ import java.util.Comparator;
  *
  * @author Gaëtan HERFRAY
  */
-@Entity(tableName = "task")
+@Entity(tableName = "tasks")
 public class Task {
     /**
      * The unique identifier of the task

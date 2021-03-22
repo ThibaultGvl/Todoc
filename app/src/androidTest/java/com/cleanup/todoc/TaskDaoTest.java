@@ -25,8 +25,8 @@ import static org.junit.Assert.assertTrue;
 public class TaskDaoTest {
 
     private SaveTaskDataBase mDataBase;
-    private static final Task Repassage = new Task(1, 1, "Repassage", new Date().getTime());
-    private static final Task Nettoyage = new Task(2, 2, "Nettoyage", new Date().getTime());
+    private static final Task Repassage = new Task(1, "Repassage", new Date().getTime());
+    private static final Task Nettoyage = new Task(2, "Nettoyage", new Date().getTime());
 
     @Rule
     public InstantTaskExecutorRule mInstantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -58,7 +58,6 @@ public class TaskDaoTest {
 
     @Test
     public void DeleteTask() throws InterruptedException {
-        this.mDataBase.taskDao().insertTask(Repassage);
         this.mDataBase.taskDao().deleteTask(Repassage);
 
         List<Task> items = LiveDataTestUtil.getValue(this.mDataBase.taskDao().getTasks());

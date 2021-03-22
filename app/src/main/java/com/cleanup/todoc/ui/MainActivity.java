@@ -145,9 +145,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     @Override
     public void onDeleteTask(Task task) {
-        tasks.remove(task);
         mTaskViewModel.deleteTask(task);
-        updateTasks(tasks);
     }
 
     /**
@@ -173,12 +171,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             }
             // If both project and name of the task have been set
             else if (taskProject != null) {
-                //TODO: Replace this by id of persisted task
-                long id = (long) (Math.random() * 50000);
-
 
                 Task task = new Task(
-                        id,
                         taskProject.getId(),
                         taskName,
                         new Date().getTime()
@@ -207,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     private void getTasks() {
         assert this.mTaskViewModel.getTasks() != null;
-        this.mTaskViewModel.getTasks().observe(this, this::updateTasks);
+        this.mTaskViewModel.getTasks().observe(this, this::updateList);
     }
 
 
@@ -232,9 +226,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * @param task the task to be added to the list
      */
     private void addTask(@NonNull Task task) {
-        tasks.add(task);
         mTaskViewModel.createTask(task);
-        updateTasks(tasks);
     }
 
     /**
@@ -264,6 +256,12 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             }
             adapter.updateTasks(tasks);
         }
+    }
+
+    private void updateList(List<Task> tasks) {
+        this.tasks.clear();
+        this.tasks.addAll(tasks);
+        updateTasks(this.tasks);
     }
 
     /**

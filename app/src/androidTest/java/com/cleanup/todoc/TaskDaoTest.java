@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.cleanup.todoc.database.dao.SaveTaskDataBase;
+import com.cleanup.todoc.database.SaveTaskDataBase;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.repositories.TaskDataRepository;
 

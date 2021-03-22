@@ -2,7 +2,7 @@ package com.cleanup.todoc.injections;
 
 import android.content.Context;
 
-import com.cleanup.todoc.database.dao.SaveTaskDataBase;
+import com.cleanup.todoc.database.SaveTaskDataBase;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.repositories.TaskDataRepository;
 

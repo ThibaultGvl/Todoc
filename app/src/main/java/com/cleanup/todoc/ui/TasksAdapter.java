@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cleanup.todoc.R;
-import com.cleanup.todoc.database.dao.SaveTaskDataBase;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 

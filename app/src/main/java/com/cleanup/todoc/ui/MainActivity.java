@@ -25,6 +25,8 @@ import com.cleanup.todoc.injections.Injection;
 import com.cleanup.todoc.injections.ViewModelFactory;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.ui.TaskViewModel;
+import com.cleanup.todoc.ui.TasksAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;

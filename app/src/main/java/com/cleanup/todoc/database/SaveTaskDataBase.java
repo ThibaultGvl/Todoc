@@ -1,4 +1,4 @@
-package com.cleanup.todoc.database.dao;
+package com.cleanup.todoc.database;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
@@ -9,6 +9,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.cleanup.todoc.database.dao.ProjectDao;
+import com.cleanup.todoc.database.dao.TaskDao;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 
@@ -19,7 +21,7 @@ public abstract class SaveTaskDataBase extends RoomDatabase {
 
         public abstract TaskDao taskDao();
 
-        public abstract  ProjectDao projectDao();
+        public abstract ProjectDao projectDao();
 
         public static SaveTaskDataBase getInstance(Context context) {
             if (INSTANCE == null) {

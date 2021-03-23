@@ -6,6 +6,8 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.cleanup.todoc.database.SaveTaskDataBase;
+import com.cleanup.todoc.database.dao.ProjectDao;
+import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.repositories.TaskDataRepository;
 
@@ -15,6 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.lang.annotation.Repeatable;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +29,6 @@ public class TaskDaoTest {
 
     private SaveTaskDataBase mDataBase;
     private static final Task Repassage = new Task(1, "Repassage", new Date().getTime());
-    private static final Task Nettoyage = new Task(2, "Nettoyage", new Date().getTime());
 
     @Rule
     public InstantTaskExecutorRule mInstantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -50,14 +52,14 @@ public class TaskDaoTest {
     @Test
     public void insertTask() throws InterruptedException {
         this.mDataBase.taskDao().insertTask(Repassage);
-        this.mDataBase.taskDao().insertTask(Nettoyage);
 
         List<Task> tasks = LiveDataTestUtil.getValue(this.mDataBase.taskDao().getTasks());
-        assertEquals(2, tasks.size());
+        assertEquals(1, tasks.size());
     }
 
     @Test
     public void DeleteTask() throws InterruptedException {
+        this.mDataBase.taskDao().insertTask(Repassage);
         this.mDataBase.taskDao().deleteTask(Repassage);
 
         List<Task> items = LiveDataTestUtil.getValue(this.mDataBase.taskDao().getTasks());

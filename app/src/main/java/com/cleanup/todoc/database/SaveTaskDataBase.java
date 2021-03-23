@@ -44,21 +44,21 @@ public abstract class SaveTaskDataBase extends RoomDatabase {
                 super.onCreate(db);
 
                 ContentValues Tartampion = new ContentValues();
-                Tartampion.put("id", 1);
+                Tartampion.put("id", 1L);
                 Tartampion.put("name", "Tartampion");
                 Tartampion.put("color", "0xFFEADAD1");
 
                 db.insert("project", OnConflictStrategy.IGNORE, Tartampion);
 
                 ContentValues Lucidia = new ContentValues();
-                Lucidia.put("id", 2);
+                Lucidia.put("id", 2L);
                 Lucidia.put("name", "Lucidia");
                 Lucidia.put("color", "0xFFB4CDBA");
 
                 db.insert("project", OnConflictStrategy.IGNORE, Lucidia);
 
                 ContentValues Circus = new ContentValues();
-                Circus.put("id", 3);
+                Circus.put("id", 3L);
                 Circus.put("name", "Circus");
                 Circus.put("color", "0xFFA3CED2");
 

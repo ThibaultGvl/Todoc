@@ -2,6 +2,7 @@ package com.cleanup.todoc.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -12,12 +13,13 @@ import android.support.annotation.Nullable;
  *
  * @author Gaëtan HERFRAY
  */
-@Entity(tableName = "project")
+@Entity(tableName = "project", indices = {@Index(value = {"id"}, unique = true)})
 public class Project {
     /**
      * The unique identifier of the project
      */
     @PrimaryKey
+    @ColumnInfo(name = "id")
     private long id;
 
     /**

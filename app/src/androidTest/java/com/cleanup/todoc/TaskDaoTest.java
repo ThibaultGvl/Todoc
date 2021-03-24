@@ -28,7 +28,9 @@ import static org.junit.Assert.assertTrue;
 public class TaskDaoTest {
 
     private SaveTaskDataBase mDataBase;
-    private static final Task Repassage = new Task(1, "Repassage", new Date().getTime());
+    private static final long ProjectId = 1;
+    private static final Project project = new Project(ProjectId, "project", 0x0000);
+    private static final Task Repassage = new Task(project.getId(), "Repassage", new Date().getTime());
 
     @Rule
     public InstantTaskExecutorRule mInstantTaskExecutorRule = new InstantTaskExecutorRule();

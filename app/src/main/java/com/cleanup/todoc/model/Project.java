@@ -13,7 +13,7 @@ import android.support.annotation.Nullable;
  *
  * @author Gaëtan HERFRAY
  */
-@Entity(tableName = "project")
+@Entity(tableName = "project", indices = {@Index(value = {"id"}, unique = true)})
 public class Project {
     /**
      * The unique identifier of the project

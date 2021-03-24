@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
@@ -61,10 +62,8 @@ public class TaskDaoTest {
 
     @Test
     public void DeleteTask() throws InterruptedException {
-        this.mDataBase.taskDao().insertTask(Repassage);
         this.mDataBase.taskDao().deleteTask(Repassage);
-
-        List<Task> items = LiveDataTestUtil.getValue(this.mDataBase.taskDao().getTasks());
-        assertTrue(items.isEmpty());
+        List<Task> tasks = LiveDataTestUtil.getValue(this.mDataBase.taskDao().getTasks());
+        assertTrue(tasks.isEmpty());
     }
 }

@@ -7,6 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.cleanup.todoc.database.SaveTaskDataBase;
 import com.cleanup.todoc.database.dao.ProjectDao;
+import com.cleanup.todoc.database.dao.TaskDao;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.repositories.TaskDataRepository;
@@ -18,10 +19,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.lang.annotation.Repeatable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
@@ -29,9 +33,8 @@ import static org.junit.Assert.assertTrue;
 public class TaskDaoTest {
 
     private SaveTaskDataBase mDataBase;
-    private static final long ProjectId = 1;
-    private static final Project project = new Project(ProjectId, "project", 0x0000);
-    private static final Task Repassage = new Task(project.getId(), "Repassage", new Date().getTime());
+    private final Project mProject = new Project(1L, "Tartampion", 0xFFEADAD1);
+    private final Task task1 = new Task(mProject.getId(), "task 1", new Date().getTime());
 
     @Rule
     public InstantTaskExecutorRule mInstantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -47,6 +50,20 @@ public class TaskDaoTest {
     }
 
     @Test
+    public void getProject() throws InterruptedException {
+        List<Project> projects = LiveDataTestUtil.getValue(this.mDataBase.projectDao().getProject());
+        projects.add(mProject);
+        assertFalse(projects.isEmpty());
+    }
+
+    @Test
+    public void insertProject() throws InterruptedException {
+        this.mDataBase.projectDao().insertProject(mProject);
+        List<Project> projects = LiveDataTestUtil.getValue(this.mDataBase.projectDao().getProject());
+        assertEquals(1, projects.size());
+    }
+
+    @Test
     public void getTasks() throws InterruptedException {
         List<Task> tasks = LiveDataTestUtil.getValue(this.mDataBase.taskDao().getTasks());
         assertTrue(tasks.isEmpty());
@@ -54,15 +71,15 @@ public class TaskDaoTest {
 
     @Test
     public void insertTask() throws InterruptedException {
-        this.mDataBase.taskDao().insertTask(Repassage);
-
+        this.mDataBase.taskDao().insertTask(task1);
         List<Task> tasks = LiveDataTestUtil.getValue(this.mDataBase.taskDao().getTasks());
         assertEquals(1, tasks.size());
+        this.mDataBase.taskDao().deleteTask(task1);
     }
 
     @Test
     public void DeleteTask() throws InterruptedException {
-        this.mDataBase.taskDao().deleteTask(Repassage);
+        this.mDataBase.taskDao().deleteTask(task1);
         List<Task> tasks = LiveDataTestUtil.getValue(this.mDataBase.taskDao().getTasks());
         assertTrue(tasks.isEmpty());
     }

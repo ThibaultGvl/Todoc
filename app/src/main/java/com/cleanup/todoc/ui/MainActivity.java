@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     /**
      * List of all projects available in the application
      */
+
+    private ViewModel mViewModel;
+
     private final Project[] allProjects = Project.getAllProjects();
 
     /**
@@ -52,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private final TasksAdapter adapter = new TasksAdapter(tasks, this);
 
-    private ViewModel mViewModel;
 
     /**
      * The sort method to be used to display tasks

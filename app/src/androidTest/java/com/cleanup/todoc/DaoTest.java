@@ -19,12 +19,10 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
-public class TaskDaoTest {
+public class DaoTest {
 
     private DataBase mDataBase;
     private final Project mProject = new Project(4L, "aaa", 0x1DADAEFF);
@@ -47,6 +45,12 @@ public class TaskDaoTest {
     public void getProject() throws InterruptedException {
         Project[] projects = LiveDataTestUtil.getValue(this.mDataBase.projectDao().getProject());
         assertEquals(3, projects.length);
+    }
+
+    @Test
+    public void getProjectId() throws InterruptedException {
+        Project projectById = this.mDataBase.projectDao().getProjectById(1L);
+        assertEquals(projectById.getName(), "Tartampion");
     }
 
     @Test

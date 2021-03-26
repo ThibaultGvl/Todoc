@@ -25,7 +25,6 @@ import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private final TasksAdapter adapter = new TasksAdapter(tasks, this);
 
-    private TaskViewModel mTaskViewModel;
+    private ViewModel mViewModel;
 
     /**
      * The sort method to be used to display tasks
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     @Override
     public void onDeleteTask(Task task) {
-        mTaskViewModel.deleteTask(task);
+        mViewModel.deleteTask(task);
     }
 
     /**
@@ -194,15 +193,19 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     private void configureViewModel() {
         ViewModelFactory mViewModelFactory = Injection.provideViewModelFactory(this);
-        this.mTaskViewModel = ViewModelProviders.of(this, mViewModelFactory).get(TaskViewModel.class);
-        this.mTaskViewModel.init();
+        this.mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(ViewModel.class);
+        this.mViewModel.initTasks();
+        this.mViewModel.initProjects();
     }
 
     private void getTasks() {
-        assert this.mTaskViewModel.getTasks() != null;
-        this.mTaskViewModel.getTasks().observe(this, this::updateList);
+        assert this.mViewModel.getTasks() != null;
+        this.mViewModel.getTasks().observe(this, this::updateList);
     }
 
+    private void getProjects() {
+        //this.mViewModel.getProject().observe(this, this::showProject);
+    }
 
 
     /**
@@ -225,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * @param task the task to be added to the list
      */
     private void addTask(@NonNull Task task) {
-        mTaskViewModel.createTask(task);
+        mViewModel.createTask(task);
     }
 
     /**
@@ -256,6 +259,10 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             adapter.updateTasks(tasks);
         }
     }
+
+    /*private void showProject(Project[] projects) {
+        allProjects = projects;
+    }*/
 
     private void updateList(List<Task> tasks) {
         this.tasks.clear();

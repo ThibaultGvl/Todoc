@@ -13,7 +13,7 @@ import java.util.List;
 public interface ProjectDao {
 
     @Query("SELECT * FROM project")
-    LiveData<List<Project>> getProject();
+    LiveData<Project[]> getProject();
 
     @Insert
     long insertProject(Project project);

@@ -15,20 +15,20 @@ import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 
 @Database(entities = {Task.class, Project.class}, version = 1, exportSchema = false)
-public abstract class SaveTaskDataBase extends RoomDatabase {
+public abstract class DataBase extends RoomDatabase {
 
-        private static volatile SaveTaskDataBase INSTANCE;
+        private static volatile DataBase INSTANCE;
 
         public abstract TaskDao taskDao();
 
         public abstract ProjectDao projectDao();
 
-        public static SaveTaskDataBase getInstance(Context context) {
+        public static DataBase getInstance(Context context) {
             if (INSTANCE == null) {
-                synchronized (SaveTaskDataBase.class) {
+                synchronized (DataBase.class) {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                SaveTaskDataBase.class, "MyDatabase.db")
+                                DataBase.class, "MyDatabase.db")
                                 .addCallback(prepopulateDatabase())
                                 .build();
                     }
@@ -36,7 +36,7 @@ public abstract class SaveTaskDataBase extends RoomDatabase {
             }
             return INSTANCE;
         }
-    private static Callback prepopulateDatabase(){
+    public static Callback prepopulateDatabase(){
         return new Callback() {
 
             @Override

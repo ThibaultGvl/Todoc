@@ -1,12 +1,11 @@
 package com.cleanup.todoc.injections;
 
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
 import com.cleanup.todoc.repositories.ProjectDataRepository;
 import com.cleanup.todoc.repositories.TaskDataRepository;
-import com.cleanup.todoc.ui.TaskViewModel;
+import com.cleanup.todoc.ui.ViewModel;
 
 import java.util.concurrent.Executor;
 
@@ -24,9 +23,9 @@ public class ViewModelFactory implements ViewModelProvider.Factory{
 
         @NonNull
         @Override
-        public <T extends ViewModel> T create(Class<T> modelClass) {
-            if (modelClass.isAssignableFrom(TaskViewModel.class)) {
-                return (T) new TaskViewModel(mTaskDataRepository, mProjectDataRepository, mExecutor);
+        public <T extends android.arch.lifecycle.ViewModel> T create(Class<T> modelClass) {
+            if (modelClass.isAssignableFrom(ViewModel.class)) {
+                return (T) new ViewModel(mTaskDataRepository, mProjectDataRepository, mExecutor);
             }
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

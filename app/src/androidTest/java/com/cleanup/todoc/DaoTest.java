@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -26,7 +27,7 @@ public class DaoTest {
 
     private DataBase mDataBase;
     private final Project mProject = new Project(4L, "aaa", 0x1DADAEFF);
-    private final Task task1 = new Task(mProject.getId(), "task 1", new Date().getTime());
+    private final Task task1 = new Task(Objects.requireNonNull(Project.getProjectById(1L)).getId(), "task 1", new Date().getTime());
 
     @Rule
     public InstantTaskExecutorRule mInstantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -61,6 +62,14 @@ public class DaoTest {
     }
 
     @Test
+    public void deleteProject() throws InterruptedException {
+        this.mDataBase.projectDao().insertProject(mProject);
+        this.mDataBase.projectDao().deleteProject(mProject);
+        Project[] projects = LiveDataTestUtil.getValue(this.mDataBase.projectDao().getProject());
+        assertEquals(3, projects.length);
+    }
+
+    @Test
     public void getTasks() throws InterruptedException {
         List<Task> tasks = LiveDataTestUtil.getValue(this.mDataBase.taskDao().getTasks());
         assertTrue(tasks.isEmpty());
@@ -71,12 +80,10 @@ public class DaoTest {
         this.mDataBase.taskDao().insertTask(task1);
         List<Task> tasks = LiveDataTestUtil.getValue(this.mDataBase.taskDao().getTasks());
         assertEquals(1, tasks.size());
-        this.mDataBase.taskDao().deleteTask(task1);
     }
 
     @Test
-    public void DeleteTask() throws InterruptedException {
-        this.mDataBase.taskDao().insertTask(task1);
+    public void deleteTask() throws InterruptedException {
         this.mDataBase.taskDao().deleteTask(task1);
         List<Task> tasks = LiveDataTestUtil.getValue(this.mDataBase.taskDao().getTasks());
         assertTrue(tasks.isEmpty());

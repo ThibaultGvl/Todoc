@@ -113,6 +113,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
          */
         private final DeleteTaskListener deleteTaskListener;
 
+        private ViewModel mViewModel;
+
         /**
          * Instantiates a new TaskViewHolder.
          *

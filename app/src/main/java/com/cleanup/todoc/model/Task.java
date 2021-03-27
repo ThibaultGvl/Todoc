@@ -3,6 +3,7 @@ package com.cleanup.todoc.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.LongDef;
 import android.support.annotation.NonNull;
@@ -17,7 +18,8 @@ import java.util.Comparator;
  */
 @Entity(tableName = "tasks", foreignKeys = @ForeignKey(entity = Project.class,
         parentColumns = "id",
-        childColumns = "projectId"))
+        childColumns = "projectId"),
+        indices = {@Index(value = {"projectId"})})
 public class Task {
     /**
      * The unique identifier of the task

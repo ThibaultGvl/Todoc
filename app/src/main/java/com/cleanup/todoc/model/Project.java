@@ -65,7 +65,6 @@ public class Project {
         };
     }
 
-
     /**
      * Returns the project with the given unique identifier, or null if no project with that
      * identifier can be found.

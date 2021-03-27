@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     private ViewModel mViewModel;
 
-    private final Project[] allProjects = Project.getAllProjects();
+    private Project[] allProjects;
 
     /**
      * List of all current tasks of the application
@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         listTasks.setAdapter(adapter);
         this.configureViewModel();
         this.getTasks();
+        this.getProjects();
 
         findViewById(R.id.fab_add_task).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     @Override
     public void onDeleteTask(Task task) {
-        mViewModel.deleteTask(task);
+        this.mViewModel.deleteTask(task);
     }
 
     /**
@@ -206,7 +207,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     }
 
     private void getProjects() {
-        //this.mViewModel.getProject().observe(this, this::showProject);
+        assert this.mViewModel != null;
+        this.mViewModel.getProject().observe(this, this::showProject);
     }
 
 
@@ -262,9 +264,9 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         }
     }
 
-    /*private void showProject(Project[] projects) {
+    private void showProject(Project[] projects) {
         allProjects = projects;
-    }*/
+    }
 
     private void updateList(List<Task> tasks) {
         this.tasks.clear();

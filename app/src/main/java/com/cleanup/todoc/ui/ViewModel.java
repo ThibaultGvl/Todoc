@@ -52,6 +52,12 @@ public class ViewModel extends android.arch.lifecycle.ViewModel {
         });
     }
 
+    public void deleteProject(final Project project) {
+        mExecutor.execute(() -> {
+            mProjectDataRepository.deleteProject(project);
+        });
+    }
+
     @Nullable
     public LiveData<List<Task>> getTasks() {
         return Tasks;

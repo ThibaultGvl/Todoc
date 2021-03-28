@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     private ViewModel mViewModel;
 
-    private Project[] allProjects;
+    private static Project[] allProjects;
 
     /**
      * List of all current tasks of the application
@@ -211,6 +211,9 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         this.mViewModel.getProject().observe(this, this::showProject);
     }
 
+    public static Project[] getAllProjects() {
+        return allProjects;
+    }
 
     /**
      * Shows the Dialog for adding a Task

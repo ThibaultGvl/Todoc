@@ -8,8 +8,6 @@ import android.arch.persistence.room.Query;
 
 import com.cleanup.todoc.model.Project;
 
-import java.util.List;
-
 @Dao
 public interface ProjectDao {
 

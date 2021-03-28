@@ -27,7 +27,7 @@ public class DaoTest {
 
     private DataBase mDataBase;
     private final Project mProject = new Project(4L, "aaa", 0x1DADAEFF);
-    private final Task task1 = new Task(Objects.requireNonNull(Project.getProjectById(1L)).getId(), "task 1", new Date().getTime());
+    private final Task task1 = new Task(Project.getProjectById(1).getId(), "task 1", new Date().getTime());
 
     @Rule
     public InstantTaskExecutorRule mInstantTaskExecutorRule = new InstantTaskExecutorRule();

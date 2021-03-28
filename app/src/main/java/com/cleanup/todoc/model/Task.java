@@ -3,11 +3,16 @@ package com.cleanup.todoc.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverter;
 import android.support.annotation.LongDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import com.cleanup.todoc.ui.MainActivity;
+import com.cleanup.todoc.ui.ViewModel;
 
 import java.util.Comparator;
 
@@ -48,6 +53,7 @@ public class Task {
      */
     @ColumnInfo(name = "creationTimestamp")
     private long creationTimestamp;
+
 
     /**
      * Instantiates a new Task.
@@ -90,6 +96,7 @@ public class Task {
         this.projectId = projectId;
     }
 
+
     public long getProjectId() {
         return projectId;
     }
@@ -99,6 +106,7 @@ public class Task {
      *
      * @return the project associated to the task
      */
+
     @Nullable
     public Project getProject() {
         return Project.getProjectById(projectId);

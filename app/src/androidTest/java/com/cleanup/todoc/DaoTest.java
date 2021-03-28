@@ -49,12 +49,6 @@ public class DaoTest {
     }
 
     @Test
-    public void getProjectId() throws InterruptedException {
-        Project projectById = this.mDataBase.projectDao().getProjectById(1L);
-        assertEquals(projectById.getName(), "Tartampion");
-    }
-
-    @Test
     public void insertProject() throws InterruptedException {
         this.mDataBase.projectDao().insertProject(mProject);
         Project[] projects = LiveDataTestUtil.getValue(this.mDataBase.projectDao().getProject());

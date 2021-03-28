@@ -44,8 +44,6 @@ public class ViewModel extends android.arch.lifecycle.ViewModel {
 
     public LiveData<Project[]> getProject() {return Projects;}
 
-    public Project getProjectById(long id) {return mProjectDataRepository.getProjectById(id);}
-
     public void createProject(final Project project) {
         mExecutor.execute(() -> {
             mProjectDataRepository.insertProject(project);
